@@ -102,6 +102,11 @@ limitations under the License.
       <version>2.13.0</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.google.cloud.dataflow</groupId>
+      <artifactId>google-cloud-dataflow-java-sdk-all</artifactId>
+      <version>[2.2.0, 2.99)</version>
+    </dependency>
     <!-- [END_EXCLUDE] -->
   </dependencies>
 
