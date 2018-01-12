@@ -27,6 +27,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.beam.runners.dataflow.DataflowRunner;
+import org.apache.beam.runners.dataflow.options.DataflowPipelineOptions;
+import org.apache.beam.sdk.Pipeline;
+import org.apache.beam.sdk.options.PipelineOptionsFactory;
+
 // With @WebServlet annotation the webapp/WEB-INF/web.xml is no longer required.
 @WebServlet(name = "HelloAppEngine", value = "/hello")
 public class HelloAppEngine extends HttpServlet {
@@ -34,6 +39,14 @@ public class HelloAppEngine extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
+    
+    DataflowPipelineOptions dataflowOptions = PipelineOptionsFactory.as(DataflowPipelineOptions.class);
+    dataflowOptions.setRunner(DataflowRunner.class);
+    dataflowOptions.setProject("your-project-name");
+    dataflowOptions.setStagingLocation("gs://your-bucket-name");
+    Pipeline pipeline = Pipeline.create(dataflowOptions);
+    pipeline.run();
+
     Properties properties = System.getProperties();
 
     response.setContentType("text/plain");
